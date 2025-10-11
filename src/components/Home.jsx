@@ -4,7 +4,7 @@ import './Authpage.css';
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useNavigate } from 'react-router-dom'; // <-- Add this import
 
-const Authpage = () => {
+const Home = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
@@ -276,6 +276,6 @@ const Authpage = () => {
 };
 
 
-export default AuthPage;
+export default Home;
 
 

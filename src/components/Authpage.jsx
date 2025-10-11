@@ -3,7 +3,7 @@ import './Authpage.css';
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 
-const AuthPage = () => {
+const Authpage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
