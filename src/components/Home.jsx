@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Authpage.css';
-navigate('/dashboard')
+// navigate('/dashboard')
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useNavigate } from 'react-router-dom'; // <-- Add this import
 
