@@ -1,14 +1,13 @@
-
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './components/Home';
-import AuthPage from './components/Authpage';
-import './App.css';
-import Dashboard from './components/dashboard';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import AuthPage from "./components/Authpage";
+import Dashboard from "./components/Dashboard";
+import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>     
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/authpage" element={<AuthPage />} />
