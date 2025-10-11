@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-const Dashboard = () => {
+const dashboard = () => {
   const [user, setUser] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -350,4 +350,5 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+
+export default dashboard;
