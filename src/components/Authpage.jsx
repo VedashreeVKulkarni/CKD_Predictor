@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './AuthPage.css';
+import './Authpage.css';
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 
@@ -301,4 +301,5 @@ const handleSubmit = async (e) => {
   );
 };
 
-export default AuthPage;
+
+export default Authpage;
