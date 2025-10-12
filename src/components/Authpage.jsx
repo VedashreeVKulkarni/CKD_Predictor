@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Authpage.css';
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, MenuIcon, XIcon } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 
 const Authpage = () => {
@@ -16,6 +16,7 @@ const Authpage = () => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -26,52 +27,95 @@ const Authpage = () => {
     });
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
 
-  // ✅ Password match validation (only for signup)
-  if (!isLogin && formData.password !== formData.confirmPassword) {
-    setError("Passwords do not match!");
-    return;
-  }
+    // ✅ Password match validation (only for signup)
+    if (!isLogin && formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match!");
+      return;
+    }
 
-  setIsLoading(true);
-  
-  try {
-    await new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // Simulate random success (90% success rate)
-        if (Math.random() > 0.1) {
-          resolve();
-        } else {
-          reject(new Error(isLogin ? "Login failed. Please try again." : "Signup failed. Please try again."));
-        }
-      }, 1500);
-    });
-
-    // Save user data to localStorage
-    const userData = {
-      email: formData.email,
-      username: formData.username,
-      fullName: formData.fullName
-    };
-    localStorage.setItem('user', JSON.stringify(userData));
-
-    // Success - redirect to dashboard
-    navigate('/dashboard');
+    setIsLoading(true);
     
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setIsLoading(false);
-  }
-};
-    const handleGoToDashboard = () => {
+    try {
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // Simulate random success (90% success rate)
+          if (Math.random() > 0.1) {
+            resolve();
+          } else {
+            reject(new Error(isLogin ? "Login failed. Please try again." : "Signup failed. Please try again."));
+          }
+        }, 1500);
+      });
+
+      // Save user data to localStorage
+      const userData = {
+        email: formData.email,
+        username: formData.username,
+        fullName: formData.fullName
+      };
+      localStorage.setItem('user', JSON.stringify(userData));
+
+      // Success - redirect to dashboard
+      navigate('/dashboard');
+      
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoToDashboard = () => {
     navigate('/dashboard');
   };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <div className={`auth-container ${isLogin ? 'login-bg' : 'signup-bg'}`}>
+      {/* Mobile Menu Header */}
+      
+
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="mobile-menu-overlay" onClick={toggleMobileMenu}>
+          <div className="mobile-menu-content" onClick={(e) => e.stopPropagation()}>
+            <div className="mobile-menu-header-inner">
+              <h3>Menu</h3>
+              <button 
+                className="mobile-menu-close"
+                onClick={toggleMobileMenu}
+                aria-label="Close menu"
+              >
+                <XIcon size={24} />
+              </button>
+            </div>
+            <nav className="mobile-nav">
+              <a href="#" className="mobile-nav-item">Home</a>
+              <a href="#" className="mobile-nav-item">Features</a>
+              <a href="#" className="mobile-nav-item">About</a>
+              <a href="#" className="mobile-nav-item">Contact</a>
+              <button 
+                className="mobile-nav-item mobile-nav-button"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  navigate('/dashboard');
+                }}
+              >
+                Go to Dashboard
+              </button>
+            </nav>
+          </div>
+        </div>
+      )}
+
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-icon">
@@ -300,6 +344,5 @@ const handleSubmit = async (e) => {
     </div>
   );
 };
-
 
 export default Authpage;
