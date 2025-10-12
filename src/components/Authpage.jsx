@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Authpage.css';
-import { EyeIcon, EyeOffIcon, MenuIcon, XIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 
 const Authpage = () => {
@@ -16,7 +16,6 @@ const Authpage = () => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -68,54 +67,19 @@ const Authpage = () => {
       setIsLoading(false);
     }
   };
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleGoToDashboard = () => {
-    navigate('/dashboard');
-  };
+const handleMenuToggle = () => {
+  setIsMobileMenuOpen((prev) => !prev);
+};
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+const handleMenuNavigate = (path) => {
+  setIsMobileMenuOpen(false);
+  navigate(path);
+};
 
   return (
     <div className={`auth-container ${isLogin ? 'login-bg' : 'signup-bg'}`}>
-      {/* Mobile Menu Header */}
-      
-
-
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <div className="mobile-menu-overlay" onClick={toggleMobileMenu}>
-          <div className="mobile-menu-content" onClick={(e) => e.stopPropagation()}>
-            <div className="mobile-menu-header-inner">
-              <h3>Menu</h3>
-              <button 
-                className="mobile-menu-close"
-                onClick={toggleMobileMenu}
-                aria-label="Close menu"
-              >
-                <XIcon size={24} />
-              </button>
-            </div>
-            <nav className="mobile-nav">
-              <a href="#" className="mobile-nav-item">Home</a>
-              <a href="#" className="mobile-nav-item">Features</a>
-              <a href="#" className="mobile-nav-item">About</a>
-              <a href="#" className="mobile-nav-item">Contact</a>
-              <button 
-                className="mobile-nav-item mobile-nav-button"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  navigate('/dashboard');
-                }}
-              >
-                Go to Dashboard
-              </button>
-            </nav>
-          </div>
-        </div>
-      )}
-
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-icon">
@@ -141,6 +105,8 @@ const Authpage = () => {
             {isLogin ? 'Sign in to your account' : 'Join us today to get started'}
           </p>
         </div>
+
+        
 
         {/* Dynamic Form */}
         <form onSubmit={handleSubmit} className="auth-form">
@@ -206,7 +172,7 @@ const Authpage = () => {
             <label htmlFor="password" className="form-label">
               Password
             </label>
-            <div className="form-input-container" style={{ position: 'relative' }}>
+            <div className="form-input-container">
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -218,13 +184,7 @@ const Authpage = () => {
                 required
               />
               <span
-                style={{
-                  position: 'absolute',
-                  right: 10,
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  cursor: 'pointer'
-                }}
+                className="password-toggle"
                 onClick={() => setShowPassword((prev) => !prev)}
                 tabIndex={0}
                 aria-label={showPassword ? "Hide password" : "Show password"}
@@ -239,7 +199,7 @@ const Authpage = () => {
               <label htmlFor="confirmPassword" className="form-label">
                 Confirm Password
               </label>
-              <div className="form-input-container" style={{ position: 'relative' }}>
+              <div className="form-input-container">
                 <input
                   type={showConfirm ? "text" : "password"}
                   id="confirmPassword"
@@ -251,13 +211,7 @@ const Authpage = () => {
                   required={!isLogin}
                 />
                 <span
-                  style={{
-                    position: 'absolute',
-                    right: 10,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    cursor: 'pointer'
-                  }}
+                  className="password-toggle"
                   onClick={() => setShowConfirm((prev) => !prev)}
                   tabIndex={0}
                   aria-label={showConfirm ? "Hide password" : "Show password"}
@@ -269,7 +223,7 @@ const Authpage = () => {
           )}
 
           {error && (
-            <div className="form-error" style={{ color: 'red', marginBottom: 8 }}>
+            <div className="form-error">
               {error}
             </div>
           )}
