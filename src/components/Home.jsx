@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-//import './Home.css';
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -8,6 +7,7 @@ const Home = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  
 
   // Get user data from localStorage on component mount
   useEffect(() => {
@@ -126,11 +126,11 @@ const Home = () => {
                 </div>
               ) : (
                 <button
-    onClick={() => navigate('/authpage')}
-    className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg text-sm font-medium transition duration-200 shadow-lg transform hover:scale-105"
-  >
-    <span className="font-semibold">Login</span>
-  </button>
+                  onClick={() => navigate('/authpage')}
+                  className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg text-sm font-medium transition duration-200 shadow-lg transform hover:scale-105"
+                >
+                  <span className="font-semibold">Login</span>
+                </button>
               )}
             </div>
 
@@ -218,22 +218,14 @@ const Home = () => {
               </p>
 
               <button
-                onClick={handleClinicalPredict}
-                disabled={isAnalyzing}
+                onClick={() => navigate("/data")}
                 className={`w-full max-w-xs py-3 px-6 rounded-xl font-semibold text-base transition duration-300 ${
                   isAnalyzing 
                     ? 'bg-gray-400 cursor-not-allowed' 
                     : 'bg-red-600 hover:bg-red-700 transform hover:scale-105'
                 } text-white shadow-lg mx-auto`}
               >
-                {isAnalyzing ? (
-                  <div className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Loading...
-                  </div>
-                ) : (
-                  'Predict with Clinical Data'
-                )}
+                Predict with Clinical Data
               </button>
             </div>
 
@@ -296,6 +288,6 @@ const Home = () => {
       </section>
     </div>
   );
-};
+}
 
 export default Home;

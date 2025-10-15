@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import AuthPage from "./components/Authpage";
 import Dashboard from "./components/dashboard";
 import "./App.css";
+import Data from "./components/Data";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/authpage" element={<AuthPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/data" element={<Data />} />
       </Routes>
     </BrowserRouter>
   );
