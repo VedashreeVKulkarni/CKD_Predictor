@@ -221,13 +221,13 @@ const Dashboard = () => {
     switch (activeSection) {
       case 'upload':
         return (
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="bg-white shadow-lg p-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Upload Medical Scans</h2>
             <div className="mb-6">
               <label className="block text-lg font-medium text-gray-700 mb-3">
                 Select Scan Type
               </label>
-              <select className="w-full max-w-md p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+              <select className="w-full max-w-md p-3 border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-red-500">
                 <option>CT Scan</option>
                 <option>MRI</option>
                 <option>Ultrasound</option>
@@ -235,12 +235,12 @@ const Dashboard = () => {
               </select>
             </div>
             
-            <div className="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center mb-6">
-              <div className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="border-2 border-dashed border-gray-300 p-8 text-center mb-6">
+              <div className="w-16 h-16 bg-red-100 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">📁</span>
               </div>
               <p className="text-gray-600 mb-4">Drag and drop your medical images here, or click to browse</p>
-              <label htmlFor="scan-upload" className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold cursor-pointer transition duration-200">
+              <label htmlFor="scan-upload" className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-semibold cursor-pointer transition duration-200">
                 Browse Files
               </label>
               <input 
@@ -254,7 +254,7 @@ const Dashboard = () => {
             </div>
 
             {selectedFile && (
-              <div className="bg-red-50 rounded-lg p-4 mb-6">
+              <div className="bg-red-50 p-4 mb-6">
                 <p className="text-red-700 font-medium">
                   📄 {selectedFile.name} - Ready for analysis
                 </p>
@@ -264,7 +264,7 @@ const Dashboard = () => {
             <button
               onClick={handlePredict}
               disabled={!selectedFile || isAnalyzing}
-              className={`px-8 py-3 rounded-xl font-semibold text-lg transition duration-300 ${
+              className={`px-8 py-3 font-semibold text-lg transition duration-300 ${
                 !selectedFile || isAnalyzing
                   ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-red-600 hover:bg-red-700 transform hover:scale-105'
@@ -277,52 +277,52 @@ const Dashboard = () => {
 
       case 'history':
         return (
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="bg-white shadow-lg p-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Patient History</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-red-50 rounded-xl p-6">
+              <div className="bg-red-50 p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Recent Scans</h3>
                 <div className="space-y-3">
-                  <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                  <div className="flex justify-between items-center p-3 bg-white">
                     <span>CT Scan - 15 Nov 2024</span>
                     <span className="text-green-600 font-medium">Normal</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                  <div className="flex justify-between items-center p-3 bg-white">
                     <span>MRI - 02 Nov 2024</span>
                     <span className="text-yellow-600 font-medium">Mild Risk</span>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-blue-50 rounded-xl p-6">
+              <div className="bg-blue-50 p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">Risk Assessment History</h3>
                 <div className="space-y-3">
-                  <div className="p-3 bg-white rounded-lg">
+                  <div className="p-3 bg-white">
                     <div className="flex justify-between mb-1">
                       <span>Current Risk Level</span>
                       <span className="font-medium text-green-600">Low</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-green-600 h-2 rounded-full" style={{width: '25%'}}></div>
+                    <div className="w-full bg-gray-200 h-2">
+                      <div className="bg-green-600 h-2" style={{width: '25%'}}></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-6">
+            <div className="bg-gray-50 p-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Medical Timeline</h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <div className="w-3 h-3 bg-red-600 rounded-full mt-2"></div>
+                  <div className="w-3 h-3 bg-red-600 mt-2"></div>
                   <div>
                     <p className="font-medium">Initial Screening</p>
                     <p className="text-gray-600 text-sm">October 15, 2024 - Baseline assessment completed</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <div className="w-3 h-3 bg-blue-600 rounded-full mt-2"></div>
+                  <div className="w-3 h-3 bg-blue-600 mt-2"></div>
                   <div>
                     <p className="font-medium">Follow-up Consultation</p>
                     <p className="text-gray-600 text-sm">November 2, 2024 - Progress review</p>
@@ -335,13 +335,13 @@ const Dashboard = () => {
 
       case 'profile':
         return (
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="bg-white shadow-lg p-8">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-3xl font-bold text-gray-900">User Profile</h2>
               {!isEditing && (
                 <button
                   onClick={handleEditProfile}
-                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-semibold transition duration-200"
+                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 font-semibold transition duration-200"
                 >
                   Edit Profile
                 </button>
@@ -350,8 +350,8 @@ const Dashboard = () => {
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-1">
-                <div className="bg-red-50 rounded-2xl p-6 text-center">
-                  <div className="w-24 h-24 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-red-50 p-6 text-center">
+                  <div className="w-24 h-24 bg-red-600 flex items-center justify-center mx-auto mb-4">
                     <span className="text-white text-2xl font-bold">
                       {user?.fullName ? user.fullName.charAt(0).toUpperCase() : user?.username ? user.username.charAt(0).toUpperCase() : 'U'}
                     </span>
@@ -360,17 +360,16 @@ const Dashboard = () => {
                   <p className="text-gray-600">{user?.email}</p>
                   
                   {isEditing && (
-                    <button className="mt-4 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition duration-200 w-full">
+                    <button className="mt-4 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 transition duration-200 w-full">
                       Change Profile Picture
                     </button>
                   )}
                 </div>
 
-                <div className="mt-6 bg-red-50 rounded-2xl p-6">
-                  
+                <div className="mt-6 bg-red-50 p-6">
                   <button
                     onClick={handleDeleteAccount}
-                    className="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-200 mt-6"
+                    className="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 transition duration-200 mt-6"
                   >
                     Delete Account
                   </button>
@@ -387,7 +386,7 @@ const Dashboard = () => {
                         <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                         <input 
                           type="text" 
-                          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                          className="w-full p-3 border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                           value={profileData.fullName}
                           onChange={(e) => handleInputChange('basic', 'fullName', e.target.value)}
                           readOnly={!isEditing}
@@ -397,7 +396,7 @@ const Dashboard = () => {
                         <label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
                         <input 
                           type="number" 
-                          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                          className="w-full p-3 border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                           value={profileData.age}
                           onChange={(e) => handleInputChange('basic', 'age', e.target.value)}
                           readOnly={!isEditing}
@@ -407,7 +406,7 @@ const Dashboard = () => {
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
                         <select 
-                          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                          className="w-full p-3 border border-gray-300 focus:ring-2 focus:ring-red-500 focus:border-red-500"
                           value={profileData.gender}
                           onChange={(e) => handleInputChange('basic', 'gender', e.target.value)}
                           disabled={!isEditing}
@@ -443,7 +442,7 @@ const Dashboard = () => {
                               checked={value}
                               onChange={(e) => handleInputChange('medicalConditions', condition, e.target.checked)}
                               disabled={!isEditing}
-                              className="rounded text-red-600 focus:ring-red-500 mr-3"
+                              className="text-red-600 focus:ring-red-500 mr-3"
                             />
                             <label htmlFor={condition} className="text-gray-700 capitalize">
                               {condition.replace(/([A-Z])/g, ' $1')}
@@ -489,7 +488,7 @@ const Dashboard = () => {
                               checked={value}
                               onChange={(e) => handleInputChange('currentMedications', medication, e.target.checked)}
                               disabled={!isEditing}
-                              className="rounded text-red-600 focus:ring-red-500 mr-3"
+                              className="text-red-600 focus:ring-red-500 mr-3"
                             />
                             <label htmlFor={medication} className="text-gray-700">
                               {medication === 'bpTablets' && 'BP tablets'}
@@ -500,8 +499,6 @@ const Dashboard = () => {
                         ))}
                       </div>
                     </div>
-                   
-                      
                   </div>
 
                   {/* Update Details Button */}
@@ -509,13 +506,13 @@ const Dashboard = () => {
                     <div className="flex space-x-4 pt-6 border-t border-gray-200">
                       <button
                         onClick={handleUpdateDetails}
-                        className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition duration-200"
+                        className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 font-semibold transition duration-200"
                       >
                         Update Details
                       </button>
                       <button
                         onClick={handleCancelEdit}
-                        className="bg-gray-500 hover:bg-gray-600 text-white px-8 py-3 rounded-lg font-semibold transition duration-200"
+                        className="bg-gray-500 hover:bg-gray-600 text-white px-8 py-3 font-semibold transition duration-200"
                       >
                         Cancel
                       </button>
@@ -547,8 +544,8 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
               
               {/* Clinical Data Card */}
-              <div className="bg-white rounded-2xl shadow-xl p-8 border border-red-200 text-center hover:scale-105 transition-all duration-300">
-                <div className="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="bg-white shadow-xl p-8 border border-red-200 text-center hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 bg-red-100 flex items-center justify-center mx-auto mb-4">
                   <span className="text-xl">📋</span>
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -561,7 +558,7 @@ const Dashboard = () => {
                 <button
                   onClick={handleClinicalPredict}
                   disabled={isAnalyzing}
-                  className={`w-full max-w-xs py-3 px-6 rounded-xl font-semibold text-base transition duration-300 ${
+                  className={`w-full max-w-xs py-3 px-6 font-semibold text-base transition duration-300 ${
                     isAnalyzing 
                       ? 'bg-gray-400 cursor-not-allowed' 
                       : 'bg-red-600 hover:bg-red-700 transform hover:scale-105'
@@ -569,7 +566,7 @@ const Dashboard = () => {
                 >
                   {isAnalyzing ? (
                     <div className="flex items-center justify-center">
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                      <div className="animate-spin h-5 w-5 border-b-2 border-white mr-2"></div>
                       Loading...
                     </div>
                   ) : (
@@ -579,8 +576,8 @@ const Dashboard = () => {
               </div>
 
               {/* CT Scan Card */}
-              <div className="bg-white rounded-2xl shadow-xl p-8 border border-red-200 text-center hover:scale-105 transition-all duration-300">
-                <div className="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="bg-white shadow-xl p-8 border border-red-200 text-center hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 bg-red-100 flex items-center justify-center mx-auto mb-4">
                   <span className="text-xl">🖼️</span>
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -591,7 +588,7 @@ const Dashboard = () => {
                 </p>
 
                 <div className="mb-4">
-                  <label htmlFor="file-upload" className="block w-full max-w-xs py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold text-base cursor-pointer transition duration-300 mx-auto">
+                  <label htmlFor="file-upload" className="block w-full max-w-xs py-2 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold text-base cursor-pointer transition duration-300 mx-auto">
                     {selectedFile ? 'Change CT Scan' : 'Upload CT Scan'}
                   </label>
                   <input 
@@ -604,7 +601,7 @@ const Dashboard = () => {
                 </div>
 
                 {selectedFile && (
-                  <div className="mb-4 p-3 bg-red-50 rounded-lg border border-red-200 max-w-xs mx-auto">
+                  <div className="mb-4 p-3 bg-red-50 border border-red-200 max-w-xs mx-auto">
                     <p className="text-red-700 font-medium text-sm">
                       📄 {selectedFile.name}
                     </p>
@@ -615,7 +612,7 @@ const Dashboard = () => {
                   <button
                     onClick={handlePredict}
                     disabled={isAnalyzing}
-                    className={`w-full max-w-xs py-3 px-6 rounded-xl font-semibold text-base transition duration-300 ${
+                    className={`w-full max-w-xs py-3 px-6 font-semibold text-base transition duration-300 ${
                       isAnalyzing 
                         ? 'bg-gray-400 cursor-not-allowed' 
                         : 'bg-red-600 hover:bg-red-700 transform hover:scale-105'
@@ -623,7 +620,7 @@ const Dashboard = () => {
                   >
                     {isAnalyzing ? (
                       <div className="flex items-center justify-center">
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                        <div className="animate-spin h-5 w-5 border-b-2 border-white mr-2"></div>
                         Analyzing Scan...
                       </div>
                     ) : (
@@ -635,8 +632,8 @@ const Dashboard = () => {
             </div>
 
             {/* Future Prediction Card */}
-            <div className="bg-white max-w-md mx-auto rounded-2xl shadow-xl p-8 border border-red-200 text-center hover:scale-105 transition-all duration-300">
-              <div className="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white max-w-md mx-auto shadow-xl p-8 border border-red-200 text-center hover:scale-105 transition-all duration-300">
+              <div className="w-12 h-12 bg-red-100 flex items-center justify-center mx-auto mb-4">
                 <span className="text-xl">🔮</span>
               </div>
 
@@ -651,7 +648,7 @@ const Dashboard = () => {
                 <button
                   onClick={handleFuturePrediction}
                   disabled={isAnalyzing}
-                  className={`w-full max-w-xs py-3 px-6 rounded-xl font-semibold text-base transition duration-300 ${
+                  className={`w-full max-w-xs py-3 px-6 font-semibold text-base transition duration-300 ${
                     isAnalyzing
                       ? 'bg-gray-400 cursor-not-allowed'
                       : 'bg-red-600 hover:bg-red-700 transform hover:scale-105'
@@ -659,7 +656,7 @@ const Dashboard = () => {
                 >
                   {isAnalyzing ? (
                     <div className="flex items-center justify-center">
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                      <div className="animate-spin h-5 w-5 border-b-2 border-white mr-2"></div>
                       Predicting Future...
                     </div>
                   ) : (
@@ -692,9 +689,9 @@ const Dashboard = () => {
                 <div className="relative">
                   <button
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    className="flex items-center space-x-3 bg-red-50 hover:bg-red-100 rounded-lg px-3 py-2 transition-colors duration-200"
+                    className="flex items-center space-x-3 bg-red-50 hover:bg-red-100 px-3 py-2 transition-colors duration-200"
                   >
-                    <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-red-600 flex items-center justify-center">
                       <span className="text-white font-medium text-sm">
                         {user.fullName ? user.fullName.charAt(0).toUpperCase() : user.username ? user.username.charAt(0).toUpperCase() : 'U'}
                       </span>
@@ -716,7 +713,7 @@ const Dashboard = () => {
 
                   {/* User Dropdown Menu */}
                   {isUserMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
+                    <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg border border-gray-200 py-1 z-50">
                       <div className="px-4 py-2 border-b border-gray-100">
                         <p className="text-sm font-medium text-gray-900">{user.fullName || user.username}</p>
                         <p className="text-xs text-gray-500 truncate">{user.email}</p>
@@ -733,7 +730,7 @@ const Dashboard = () => {
               ) : (
                 <button
                   onClick={handleLogin}
-                  className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition duration-200 shadow-lg"
+                  className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 text-sm font-medium transition duration-200 shadow-lg"
                 >
                   <span>Login</span>
                 </button>
@@ -743,7 +740,7 @@ const Dashboard = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-red-600 hover:bg-red-50"
+              className="md:hidden inline-flex items-center justify-center p-2 text-gray-700 hover:text-red-600 hover:bg-red-50"
             >
               <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 {isMobileMenuOpen ? (
@@ -762,13 +759,12 @@ const Dashboard = () => {
         {/* Sidebar */}
         <div className="w-64 bg-white shadow-lg min-h-screen hidden md:block">
           <div className="p-6">
-            
             <nav className="space-y-2">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => setActiveSection(item.id)}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition duration-200 ${
+                  className={`w-full flex items-center space-x-3 px-4 py-3 text-left transition duration-200 ${
                     activeSection === item.id
                       ? 'bg-red-600 text-white shadow-lg'
                       : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
@@ -782,7 +778,7 @@ const Dashboard = () => {
               {/* Logout Button */}
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left text-gray-700 hover:bg-red-50 hover:text-red-600 transition duration-200 mt-8"
+                className="w-full flex items-center space-x-3 px-4 py-3 text-left text-gray-700 hover:bg-red-50 hover:text-red-600 transition duration-200 mt-8"
               >
                 <span className="text-xl">🚪</span>
                 <span className="font-medium">Logout</span>
@@ -805,7 +801,7 @@ const Dashboard = () => {
                       setActiveSection(item.id);
                       setIsMobileMenuOpen(false);
                     }}
-                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition duration-200 ${
+                    className={`w-full flex items-center space-x-3 px-4 py-3 text-left transition duration-200 ${
                       activeSection === item.id
                         ? 'bg-red-600 text-white shadow-lg'
                         : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
@@ -818,7 +814,7 @@ const Dashboard = () => {
                 
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left text-gray-700 hover:bg-red-50 hover:text-red-600 transition duration-200 mt-8"
+                  className="w-full flex items-center space-x-3 px-4 py-3 text-left text-gray-700 hover:bg-red-50 hover:text-red-600 transition duration-200 mt-8"
                 >
                   <span className="text-xl">🚪</span>
                   <span className="font-medium">Logout</span>
