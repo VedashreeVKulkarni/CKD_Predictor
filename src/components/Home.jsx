@@ -218,7 +218,7 @@ const Home = () => {
               </p>
 
               <button
-                onClick={() => navigate("/data")}
+                onClick={() => navigate("/clinicaldata")}
                 className={`w-full max-w-xs py-3 px-6 rounded-xl font-semibold text-base transition duration-300 ${
                   isAnalyzing 
                     ? 'bg-gray-400 cursor-not-allowed' 
