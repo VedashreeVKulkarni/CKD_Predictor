@@ -4,7 +4,7 @@ import Home from './components/Home';
 import AuthPage from './components/Authpage';
 import './App.css';
 import Dashboard from './components/dashboard';
-import ClinicalData from './components/ClinicalData';
+import ClinicalData from './components/clinicalData';
 
 function App() {
   return (
