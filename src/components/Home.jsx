@@ -7,7 +7,7 @@ const Home = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
-  
+
 
   // Get user data from localStorage on component mount
   useEffect(() => {
@@ -61,7 +61,7 @@ const Home = () => {
     {
       icon: '🔬',
       title: 'AI-Powered Analysis',
-      description: 'Advanced machine learning algorithms analyze medical data with 95% accuracy'
+      description: 'Advanced machine learning algorithms analyze medical data for precise insights'
     },
     {
       icon: '⚡',
@@ -108,7 +108,7 @@ const Home = () => {
               <nav className="flex space-x-8">
                 <a href="#home" className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium transition-colors duration-200">Home</a>
               </nav>
-              
+
               {user ? (
                 <div className="flex items-center space-x-4">
                   <div className="text-right">
@@ -154,7 +154,7 @@ const Home = () => {
             <div className="md:hidden border-t border-gray-200 pt-4 pb-3">
               <div className="flex flex-col space-y-3">
                 <a href="#home" className="text-gray-700 hover:text-red-600 px-3 py-2 text-base font-medium">Home</a>
-                
+
                 <div className="border-t border-gray-200 pt-4 mt-4">
                   {user ? (
                     <div className="flex items-center justify-between">
@@ -195,16 +195,16 @@ const Home = () => {
               Early Detection for
               <span className="block text-red-600">Healthy Kidneys</span>
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
-              Advanced AI-powered Chronic Kidney Disease risk assessment. 
+              Advanced AI-powered Chronic Kidney Disease risk assessment.
               Get instant, accurate insights to protect your kidney health and prevent complications.
             </p>
           </div>
 
           {/* Dual Prediction Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-20">
-            
+
             {/* Clinical Data Card */}
             <div className="bg-white rounded-2xl shadow-2xl p-8 border border-red-200 text-center hover:scale-105 transition-all duration-300">
               <div className="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -219,11 +219,10 @@ const Home = () => {
 
               <button
                 onClick={() => navigate("/data")}
-                className={`w-full max-w-xs py-3 px-6 rounded-xl font-semibold text-base transition duration-300 ${
-                  isAnalyzing 
-                    ? 'bg-gray-400 cursor-not-allowed' 
+                className={`w-full max-w-xs py-3 px-6 rounded-xl font-semibold text-base transition duration-300 ${isAnalyzing
+                    ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-red-600 hover:bg-red-700 transform hover:scale-105'
-                } text-white shadow-lg mx-auto`}
+                  } text-white shadow-lg mx-auto`}
               >
                 Predict with Clinical Data
               </button>
@@ -245,10 +244,10 @@ const Home = () => {
                 <label htmlFor="file-upload" className="block w-full max-w-xs py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold text-base cursor-pointer transition duration-300 mx-auto">
                   {selectedFile ? 'Change CT Scan' : 'Upload CT Scan'}
                 </label>
-                <input 
-                  id="file-upload" 
-                  type="file" 
-                  className="hidden" 
+                <input
+                  id="file-upload"
+                  type="file"
+                  className="hidden"
                   onChange={handleFileSelect}
                   accept=".jpg,.jpeg,.png,.dicom,.dcm"
                 />
@@ -266,11 +265,10 @@ const Home = () => {
                 <button
                   onClick={handlePredict}
                   disabled={isAnalyzing}
-                  className={`w-full max-w-xs py-3 px-6 rounded-xl font-semibold text-base transition duration-300 ${
-                    isAnalyzing 
-                      ? 'bg-gray-400 cursor-not-allowed' 
+                  className={`w-full max-w-xs py-3 px-6 rounded-xl font-semibold text-base transition duration-300 ${isAnalyzing
+                      ? 'bg-gray-400 cursor-not-allowed'
                       : 'bg-red-600 hover:bg-red-700 transform hover:scale-105'
-                  } text-white shadow-lg mx-auto`}
+                    } text-white shadow-lg mx-auto`}
                 >
                   {isAnalyzing ? (
                     <div className="flex items-center justify-center">

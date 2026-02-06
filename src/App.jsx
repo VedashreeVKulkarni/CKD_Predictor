@@ -3,17 +3,17 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import AuthPage from './components/Authpage';
 import './App.css';
-import Dashboard from './components/dashboard';
-import ClinicalData from './components/clinicaldata';
+import Dashboard from './components/Dashboard';
+import ClinicalData from './components/ClinicalData';
 
 function App() {
   return (
     <BrowserRouter>     
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/authpage" element={<AuthPage />} />
+        <Route path="/" element={<AuthPage />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
-         <Route path="/clinicaldata" element={<ClinicalData />} /> 
+        <Route path="/clinicaldata" element={<ClinicalData />} /> 
       </Routes>
     </BrowserRouter>
   );

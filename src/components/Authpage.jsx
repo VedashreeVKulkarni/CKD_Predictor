@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './Authpage.css';
-import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
+import { Eye, EyeOff, Mail, Lock, User, ArrowRight, Loader2 } from 'lucide-react';
+import AuthLayout from '../layouts/AuthLayout';
 
-const Authpage = () => {
+const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
@@ -15,288 +15,183 @@ const Authpage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
-    // ✅ Password match validation (only for signup)
     if (!isLogin && formData.password !== formData.confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
 
     setIsLoading(true);
-    
+
     try {
+      // Simulate API call
       await new Promise((resolve, reject) => {
         setTimeout(() => {
-          // Simulate random success (90% success rate)
-          if (Math.random() > 0.1) {
-            resolve();
-          } else {
-            reject(new Error(isLogin ? "Login failed. Please try again." : "Signup failed. Please try again."));
-          }
+          if (Math.random() > 0.1) resolve();
+          else reject(new Error("Authentication failed. Please try again."));
         }, 1500);
       });
 
-      // Save user data to localStorage
       const userData = {
         email: formData.email,
         username: formData.username,
         fullName: formData.fullName
       };
       localStorage.setItem('user', JSON.stringify(userData));
-
-      // Success - redirect to dashboard
       navigate('/dashboard');
-      
+
     } catch (err) {
       setError(err.message);
     } finally {
       setIsLoading(false);
     }
   };
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-const handleMenuToggle = () => {
-  setIsMobileMenuOpen((prev) => !prev);
-};
-
-const handleMenuNavigate = (path) => {
-  setIsMobileMenuOpen(false);
-  navigate(path);
-};
 
   return (
-    <div className={`auth-container ${isLogin ? 'login-bg' : 'signup-bg'}`}>
-      <div className="auth-card">
-        <div className="auth-header">
-          <div className="auth-icon">
-            {isLogin ? (
-              <div className="icon-container login-icon">
-                <svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-            ) : (
-              <div className="icon-container signup-icon">
-                <svg className="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                </svg>
-              </div>
-            )}
-          </div>
-
-          <h2 className="auth-title">
-            {isLogin ? 'Welcome Back' : 'Create Account'}
-          </h2>
-          <p className="auth-subtitle">
-            {isLogin ? 'Sign in to your account' : 'Join us today to get started'}
-          </p>
-        </div>
-
-        
-
-        {/* Dynamic Form */}
-        <form onSubmit={handleSubmit} className="auth-form">
-          {!isLogin && (
-            <>
-              <div className="form-group">
-                <label htmlFor="fullName" className="form-label">
-                  Full Name
-                </label>
-                <div className="form-input-container">
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    className="form-input"
-                    placeholder="Enter your full name"
-                    required={!isLogin}
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="username" className="form-label">
-                  Username
-                </label>
-                <div className="form-input-container">
-                  <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    className="form-input"
-                    placeholder="Choose a username"
-                    required={!isLogin}
-                  />
-                </div>
-              </div>
-            </>
-          )}
-
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">
-              Email Address
-            </label>
-            <div className="form-input-container">
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="form-input"
-                placeholder="Enter your email"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <div className="form-input-container">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className="form-input"
-                placeholder="Enter your password"
-                required
-              />
-              <span
-                className="password-toggle"
-                onClick={() => setShowPassword((prev) => !prev)}
-                tabIndex={0}
-                aria-label={showPassword ? "Hide password" : "Show password"}
-              >
-                {showPassword ? <EyeOffIcon size={20} /> : <EyeIcon size={20} />}
-              </span>
-            </div>
-          </div>
-
-          {!isLogin && (
-            <div className="form-group">
-              <label htmlFor="confirmPassword" className="form-label">
-                Confirm Password
-              </label>
-              <div className="form-input-container">
+    <AuthLayout
+      title={isLogin ? 'Welcome Back' : 'Create Account'}
+      subtitle={isLogin ? 'Sign in to access your dashboard' : 'Join us to start your health journey'}
+    >
+      <form onSubmit={handleSubmit} className="space-y-5">
+        {!isLogin && (
+          <div className="space-y-5 animate-in slide-in-from-left-2">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">Full Name</label>
+              <div className="relative">
+                <User className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
                 <input
-                  type={showConfirm ? "text" : "password"}
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
                   onChange={handleChange}
-                  className="form-input"
-                  placeholder="Confirm your password"
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+                  placeholder="John Doe"
                   required={!isLogin}
                 />
-                <span
-                  className="password-toggle"
-                  onClick={() => setShowConfirm((prev) => !prev)}
-                  tabIndex={0}
-                  aria-label={showConfirm ? "Hide password" : "Show password"}
-                >
-                  {showConfirm ? <EyeOffIcon size={20} /> : <EyeIcon size={20} />}
-                </span>
               </div>
             </div>
-          )}
-
-          {error && (
-            <div className="form-error">
-              {error}
-            </div>
-          )}
-
-          {isLogin && (
-            <div className="form-options">
-              <div className="remember-container">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">Username</label>
+              <div className="relative">
+                <User className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
                 <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="remember-checkbox"
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+                  placeholder="johndoe"
+                  required={!isLogin}
                 />
-                <label htmlFor="remember-me" className="remember-label">
-                  Remember me
-                </label>
               </div>
-              <a href="#" className="forgot-link">
-                Forgot password?
-              </a>
             </div>
-          )}
+          </div>
+        )}
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="auth-button"
-          >
-            {isLoading ? (
-              <div className="loading-content">
-                <div className="loading-spinner"></div>
-                {isLogin ? 'Signing in...' : 'Creating account...'}
-              </div>
-            ) : (
-              isLogin ? 'Login' : 'Create Account'
-            )}
-          </button>
-        </form>
-
-        {/* Divider for Social Login */}
-        <div className="divider-container">
-          <div className="divider-line"></div>
-          <div className="divider-text">
-            <span>Or continue with</span>
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-slate-700">Email Address</label>
+          <div className="relative">
+            <Mail className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+              placeholder="name@example.com"
+              required
+            />
           </div>
         </div>
 
-        {/* Google Sign In Button */}
-        <div className="google-signin-container">
-          <button className="google-signin-btn">
-            <div className="google-icon"></div>
-            <span className="google-text">
-              Continue with Google
-            </span>
-          </button>
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-slate-700">Password</label>
+          <div className="relative">
+            <Lock className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full pl-12 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+              placeholder="••••••••"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-3.5 text-slate-400 hover:text-slate-600"
+            >
+              {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
-        {/* Toggle Footer */}
-        <div className="auth-footer">
-          <p className="toggle-text">
+        {!isLogin && (
+          <div className="space-y-2 animate-in slide-in-from-left-2">
+            <label className="text-sm font-medium text-slate-700">Confirm Password</label>
+            <div className="relative">
+              <Lock className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
+              <input
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"
+                placeholder="••••••••"
+                required={!isLogin}
+              />
+            </div>
+          </div>
+        )}
+
+        {error && (
+          <div className="p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm font-medium animate-in shake">
+            {error}
+          </div>
+        )}
+
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-red-200 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2"
+        >
+          {isLoading ? (
+            <Loader2 className="w-5 h-5 animate-spin" />
+          ) : (
+            <>
+              {isLogin ? 'Sign In' : 'Create Account'}
+              <ArrowRight className="w-5 h-5" />
+            </>
+          )}
+        </button>
+
+        <div className="text-center pt-4">
+          <p className="text-slate-500">
             {isLogin ? "Don't have an account?" : "Already have an account?"}
-            <button 
+            <button
               type="button"
-              className="toggle-link"
               onClick={() => setIsLogin(!isLogin)}
+              className="ml-2 text-red-600 font-bold hover:underline"
             >
               {isLogin ? 'Sign up' : 'Login'}
             </button>
           </p>
         </div>
-      </div>
-    </div>
+      </form>
+    </AuthLayout>
   );
 };
 
-export default Authpage;
+export default AuthPage;
