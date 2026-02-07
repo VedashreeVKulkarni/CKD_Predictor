@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import AuthPage from './components/Authpage';
 import './App.css';
-import Dashboard from './components/Dashboard';
-import ClinicalData from './components/ClinicalData';
+import Dashboard from './components/dashboard';
+import ClinicalData from './components/clinicaldata';
 
 function App() {
   return (
