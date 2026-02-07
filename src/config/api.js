@@ -5,15 +5,16 @@ export const apiConfig = {
     baseURL: API_BASE_URL,
     endpoints: {
         // CT Scan endpoints
-        uploadCTScan: '/api/upload',
-        getCTResults: '/api/results',
+        uploadCTScan: '/api/predict_ct', // Updated to match ct_routes.py
 
         // Clinical data endpoints
-        predictRF: '/api/api/predictions/rf',
+        predictRF: '/api/predictions/rf', // Updated to match prediction_routes.py
+        predictCNN: '/api/predictions/cnn', // Added explicit CNN prediction route if needed
 
-        // Auth endpoints (if needed)
+        // Auth endpoints
         login: '/api/auth/login',
         register: '/api/auth/register',
+        profile: '/api/auth/me'
     }
 };
 
@@ -23,11 +24,14 @@ export const apiConfig = {
  * @returns {string} Full API URL
  */
 export const getApiUrl = (endpoint) => {
-    // If endpoint already starts with /api, use it as is for proxy
-    if (endpoint.startsWith('/api')) {
+    // If endpoint already starts with http, return it
+    if (endpoint.startsWith('http')) {
         return endpoint;
     }
-    return `${API_BASE_URL}${endpoint}`;
+    // Remove leading slash if both have it to avoid double slash
+    const base = API_BASE_URL.endsWith('/') ? API_BASE_URL.slice(0, -1) : API_BASE_URL;
+    const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    return `${base}${path}`;
 };
 
 /**
@@ -41,20 +45,33 @@ export const apiRequest = async (endpoint, options = {}) => {
 
     const defaultOptions = {
         headers: {
-            'Content-Type': 'application/json',
+            // Default headers
             'Accept': 'application/json',
+            // Do not set Content-Type for FormData, browser sets it with boundary
+            ...(options.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
             ...options.headers,
         },
     };
 
-    const response = await fetch(url, { ...defaultOptions, ...options });
-
-    if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+    // Add auth token if available
+    const token = localStorage.getItem('token');
+    if (token) {
+        defaultOptions.headers['Authorization'] = `Bearer ${token}`;
     }
 
-    return response.json();
+    try {
+        const response = await fetch(url, { ...defaultOptions, ...options });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || errorData.error || `HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('API Request failed:', error);
+        throw error;
+    }
 };
 
 export default apiConfig;

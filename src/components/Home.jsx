@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiRequest, apiConfig } from '../config/api';
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -24,37 +25,63 @@ const Home = () => {
     }
   };
 
-  const handlePredict = () => {
+  const handlePredict = async () => {
     if (!selectedFile) {
       alert('Please select a scan file first');
       return;
     }
+
     setIsAnalyzing(true);
-    setTimeout(() => {
+
+    try {
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+      if (user) {
+        formData.append('patient_id', user.id || user._id || 'anonymous');
+      }
+
+      const response = await apiRequest(apiConfig.endpoints.uploadCTScan, {
+        method: 'POST',
+        body: formData
+      });
+
+      console.log('Prediction response:', response);
+
+      let message = 'Scan analysis complete!';
+      if (response.prediction) {
+        message += `\nResult: ${response.prediction}`;
+      }
+      if (response.confidence) {
+        message += `\nConfidence: ${response.confidence}%`;
+      }
+
+      alert(message);
+
+      // Navigate to dashboard or results page if appropriate
+      // navigate('/dashboard');
+
+    } catch (error) {
+      console.error('Prediction error:', error);
+      alert(`Analysis failed: ${error.message}`);
+    } finally {
       setIsAnalyzing(false);
-      alert('Scan analysis complete! Results show early stage CKD detection. Please consult a nephrologist for detailed diagnosis.');
-    }, 3000);
+    }
   };
 
   const handleClinicalPredict = () => {
-    setIsAnalyzing(true);
-    setTimeout(() => {
-      setIsAnalyzing(false);
-      alert('Redirecting to Clinical Data page...');
-      // You can add navigation to clinical data page here
-      // navigate('/clinical-data');
-    }, 1000);
+    navigate('/clinicaldata');
   };
 
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     // Optional: Redirect to auth page after logout
     // navigate('/authpage');
   };
 
   const handleLogin = () => {
-    navigate('/auth');
+    navigate('/');
   };
 
   const features = [
@@ -126,7 +153,7 @@ const Home = () => {
                 </div>
               ) : (
                 <button
-                  onClick={() => navigate('/authpage')}
+                  onClick={() => navigate('/')}
                   className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg text-sm font-medium transition duration-200 shadow-lg transform hover:scale-105"
                 >
                   <span className="font-semibold">Login</span>
@@ -218,10 +245,10 @@ const Home = () => {
               </p>
 
               <button
-                onClick={() => navigate("/data")}
+                onClick={handleClinicalPredict}
                 className={`w-full max-w-xs py-3 px-6 rounded-xl font-semibold text-base transition duration-300 ${isAnalyzing
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-red-600 hover:bg-red-700 transform hover:scale-105'
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-red-600 hover:bg-red-700 transform hover:scale-105'
                   } text-white shadow-lg mx-auto`}
               >
                 Predict with Clinical Data
@@ -266,8 +293,8 @@ const Home = () => {
                   onClick={handlePredict}
                   disabled={isAnalyzing}
                   className={`w-full max-w-xs py-3 px-6 rounded-xl font-semibold text-base transition duration-300 ${isAnalyzing
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-red-600 hover:bg-red-700 transform hover:scale-105'
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-red-600 hover:bg-red-700 transform hover:scale-105'
                     } text-white shadow-lg mx-auto`}
                 >
                   {isAnalyzing ? (

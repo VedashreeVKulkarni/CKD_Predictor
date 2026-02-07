@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Upload, FileText, Activity, AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
 import DashboardLayout from '../layouts/DashboardLayout';
+import { apiRequest, apiConfig } from '../config/api';
 
 const ClinicalData = () => {
   const navigate = useNavigate();
@@ -89,21 +90,10 @@ const ClinicalData = () => {
         }
       };
 
-      const response = await fetch('/api/api/predictions/rf', {
+      const result = await apiRequest(apiConfig.endpoints.predictRF, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
         body: JSON.stringify(payload)
       });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
 
       setPrediction({
         prediction: result.status === 'Positive' ? 1 : 0,
